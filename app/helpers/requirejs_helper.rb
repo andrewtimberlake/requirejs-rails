@@ -59,7 +59,7 @@ module RequirejsHelper
           run_config['paths'] = paths
         end
 
-        run_config['baseUrl'] = base_url(name)
+        run_config['baseUrl'] = base_url(name) unless run_config['baseUrl']
 
         html.concat(content_tag(:script) do
           script = "require.config(#{run_config.to_json});"
@@ -111,10 +111,12 @@ module RequirejsHelper
   end
 
   def base_url(js_asset)
-    js_asset_path = javascript_path(js_asset)
-    uri = URI.parse(js_asset_path)
-    asset_host = uri.host && js_asset_path.sub(uri.request_uri, '')
-    [asset_host, Rails.application.config.relative_url_root, Rails.application.config.assets.prefix].join
+    Rails.application.config.requirejs.run_config['baseUrl'] || begin
+                                                                  js_asset_path = javascript_path(js_asset)
+                                                                  uri = URI.parse(js_asset_path)
+                                                                  asset_host = uri.host && js_asset_path.sub(uri.request_uri, '')
+                                                                  [asset_host, Rails.application.config.relative_url_root, Rails.application.config.assets.prefix].join
+                                                                end
   end
 
   def view_proxy
