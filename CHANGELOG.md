@@ -2,6 +2,17 @@
 
 ## requirejs-rails changelog
 
+### v1.0.0
+
+- Update `require.js` and `r.js` to `2.1.22`.
+- Fix a `sass-rails` `3.*.*` backwards compatibility issue (credit `@merqlove`).
+- Fix a Sprockets `3.3.0` backwards compatibility issue (credit `@swils`).
+
+### v0.9.9
+
+- Fix an asset digesting regression in #238 (credit @jonhyman).
+- Update `require.js` and `r.js` to `2.1.19`.
+
 ### v0.9.8
 
 - Fix a bad regression and yank v0.9.7.
